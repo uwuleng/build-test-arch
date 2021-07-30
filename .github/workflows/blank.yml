@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          wget -c "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" -O arch-bootstrap.sh
+          sudo install arch-bootstrap.sh /usr/bin/arch-bootstrap
+          sudo arch-bootstrap -a x86_64 chroot
+          sudo mount --bind /dev chroot/dev
+          sudo mount --bind /sys chroot/sys
+          sudo mount --bind /proc chroot/proc
+          sudo mount --bind /run chroot/run
+          sudo git clone $(git remote get-url origin) chroot/build
+          sudo mkdir chroot/output/
+          sudo chroot chroot bash /build/build.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+            name: output
+            path: chroot/output/*
