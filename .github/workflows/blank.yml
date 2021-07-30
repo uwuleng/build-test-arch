@@ -23,7 +23,7 @@ jobs:
           sudo mount --bind /run chroot/run
           sudo git clone $(git remote get-url origin) chroot/build
           sudo mkdir chroot/output/
-          sudo chroot chroot bash /build/build.sh
+          sudo chroot chroot bash -ex /build/build.sh
 
       - uses: actions/upload-artifact@v2
         with:
