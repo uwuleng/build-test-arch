@@ -16,9 +16,9 @@ jobs:
         run: |
           git clone https://gitlab.com/tearch-linux/applications-and-tools/teaiso -b rw
           cd teaiso
-          pacman -Sy xorriso grub mtools make python \
-             dosfstools e2fsprogs squashfs-tools python-yaml \
-             gcc wget curl --noconfirm libisoburn
+          apt install xorriso grub-pc-bin grub-efi mtools make python3 \
+              dosfstools e2fsprogs squashfs-tools python3-yaml \
+              gcc wget curl unzip xz-utils -y
           make
           git clone https://gitlab.com/tearch-linux/configs/tearch-iso-profiles
           exec sudo ./mkteaiso --profile=tearch-iso-profiles/editions/pantheon --output=/chroot/output/ --debug 2>&1
