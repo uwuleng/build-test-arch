@@ -14,16 +14,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: build
         run: |
-          wget -c "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" -O arch-bootstrap.sh
-          sudo install arch-bootstrap.sh /usr/bin/arch-bootstrap
-          sudo arch-bootstrap -a x86_64 chroot
-          sudo mount --bind /dev chroot/dev
-          sudo mount --bind /sys chroot/sys
-          sudo mount --bind /proc chroot/proc
-          sudo mount --bind /run chroot/run
-          sudo git clone $(git remote get-url origin) chroot/build
-          sudo mkdir chroot/output/
-          sudo chroot chroot bash -ex /build/build.sh
+          git clone https://gitlab.com/tearch-linux/applications-and-tools/teaiso -b rw
+          cd teaiso
+          pacman -Sy xorriso grub mtools make python \
+             dosfstools e2fsprogs squashfs-tools python-yaml \
+             gcc wget curl --noconfirm libisoburn
+          make
+          git clone https://gitlab.com/tearch-linux/configs/tearch-iso-profiles
+          exec sudo ./mkteaiso --profile=tearch-iso-profiles/editions/pantheon --output=/chroot/output/ --debug 2>&1
+
 
       - uses: actions/upload-artifact@v2
         with:
