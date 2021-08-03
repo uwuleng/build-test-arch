@@ -21,7 +21,7 @@ jobs:
               gcc wget curl unzip xz-utils zstd -y
           sudo make
           git clone https://gitlab.com/tearch-linux/configs/tearch-iso-profiles
-          sed -i "s/distro:.*/distro: tearch/g" earch-iso-profiles/editions/pantheon/profile.yaml
+          sed -i "s/distro:.*/distro: tearch/g" tearch-iso-profiles/editions/pantheon/profile.yaml
           exec sudo ./mkteaiso --profile=tearch-iso-profiles/editions/pantheon --output=/chroot/output/ --debug 2>&1
 
 
