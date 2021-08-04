@@ -23,7 +23,7 @@ jobs:
           git clone https://gitlab.com/tearch-linux/configs/tearch-iso-profiles
           sed -i "s/distro:.*/distro: tearch/g" tearch-iso-profiles/editions/pantheon/profile.yaml
           sed -i "s/CheckSpace/#CheckSpace/g" tearch-iso-profiles/data/pacman.conf
-          exec sudo ./mkteaiso --profile=tearch-iso-profiles/editions/pantheon --output=/output/ --debug 2>&1
+          exec sudo ./mkteaiso --profile=tearch-iso-profiles/editions/xfce --output=/output/ --debug 2>&1
 
 
       - uses: actions/upload-artifact@v2
