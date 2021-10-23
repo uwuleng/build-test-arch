@@ -17,6 +17,7 @@ jobs:
           git clone https://gitlab.com/tearch-linux/applications-and-tools/archstrap
           cd archstrap
           sudo make install
+          cd ..
           sudo archstrap chroot
           sudo mount --bind /dev chroot/dev
           sudo mount --bind /sys chroot/sys
