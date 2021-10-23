@@ -14,9 +14,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: build
         run: |
-          wget -c "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" -O arch-bootstrap.sh
-          sudo install arch-bootstrap.sh /usr/bin/arch-bootstrap
-          sudo arch-bootstrap -a x86_64 chroot
+          git clone https://gitlab.com/tearch-linux/applications-and-tools/archstrap
+          cd archstrap
+          sudo make install
+          sudo archstrap chroot
           sudo mount --bind /dev chroot/dev
           sudo mount --bind /sys chroot/sys
           sudo mount --bind /proc chroot/proc
